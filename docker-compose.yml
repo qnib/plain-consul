@@ -1,0 +1,16 @@
+version: '3'
+services:
+  green:
+    image: qnib/plain-consul
+    hostname: '{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}'
+    ports:
+     - 8500:8500
+    environment:
+     - CONSUL_BOOTSTRAP=true
+  blue:
+    image: qnib/plain-consul
+    hostname: '{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}'
+    ports:
+     - 8501:8500
+    environment:
+     - CONSUL_CLUSTER_IPS=consul_green
