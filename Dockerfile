@@ -20,3 +20,5 @@ COPY etc/consul.d/agent.json /etc/consul.d/
 COPY opt/qnib/entry/*.sh /opt/qnib/entry/
 COPY opt/qnib/consul/bin/start.sh /opt/qnib/consul/bin/
 CMD ["/opt/qnib/consul/bin/start.sh"]
+HEALTHCHECK --interval=2s --retries=15 --timeout=1s \
+  CMD consul members
