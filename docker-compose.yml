@@ -1,16 +1,15 @@
 version: '3'
 services:
-  green:
-    image: qnib/plain-consul
+  agent:
+    image: qnib/plain-consul:local6
     hostname: '{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}'
+    deploy:
+      mode: replicated
+      replicas: 3
     ports:
-     - 8500:8500
+      - 8500:8500
     environment:
-     - CONSUL_BOOTSTRAP=true
-  blue:
-    image: qnib/plain-consul
-    hostname: '{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}'
-    ports:
-     - 8501:8500
-    environment:
-     - CONSUL_CLUSTER_IPS=consul_green
+      - SWARM_TASK_SLOT={{.Task.Slot}}
+      - CONSUL_BOOTSTRAP_EXPECT=3
+      - CONSUL_CLUSTER_IPS=consul_agent
+      - CONSUL_SKIP_CURL=true
