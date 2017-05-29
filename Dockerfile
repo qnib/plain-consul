@@ -1,7 +1,7 @@
 FROM qnib/alplain-init
 
-ARG CONSUL_VER=0.8.1
-ARG CT_VER=0.18.2
+ARG CONSUL_VER=0.8.3
+ARG CT_VER=0.18.5
 
 RUN apk add --no-cache curl unzip jq nmap openssl \
  && curl -fso /tmp/consul.zip https://releases.hashicorp.com/consul/${CONSUL_VER}/consul_${CONSUL_VER}_linux_amd64.zip \
