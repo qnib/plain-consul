@@ -1,7 +1,7 @@
 version: '3'
 services:
   agent:
-    image: qnib/plain-consul:local6
+    image: qnib/plain-consul
     hostname: '{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}'
     deploy:
       mode: replicated
