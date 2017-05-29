@@ -17,10 +17,10 @@ RUN apk add --no-cache curl unzip jq nmap openssl \
  && rm -f /tmp/consul-web-ui.zip \
  && apk --no-cache del unzip
 COPY etc/consul.d/agent.json /etc/consul.d/
-COPY opt/qnib/entry/*.sh /opt/qnib/entry/
+COPY opt/entry/*.sh /opt/entry/
 COPY opt/qnib/consul/bin/start.sh \
-     opt/qnib/consul/bin/healthcheck.sh \
      /opt/qnib/consul/bin/
+COPY opt/healthchecks/*.sh /opt/healthchecks/
 CMD ["/opt/qnib/consul/bin/start.sh"]
-HEALTHCHECK --interval=2s --retries=5 --timeout=1s \
-  CMD /opt/qnib/consul/bin/healthcheck.sh
+HEALTHCHECK --interval=2s --retries=5 --timeout=2s \
+  CMD /usr/local/bin/healthcheck.sh

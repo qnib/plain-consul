@@ -9,7 +9,8 @@ services:
     ports:
       - 8500:8500
     environment:
-      - SWARM_TASK_SLOT={{.Task.Slot}}
-      - CONSUL_BOOTSTRAP_EXPECT=3
-      - CONSUL_CLUSTER_IPS=consul_agent
-      - CONSUL_SKIP_CURL=true
+      SWARM_TASK_SLOT: "{{.Task.Slot}}"
+      SWARM_SERVICE_NAME: "{{.Service.Name}}"
+      CONSUL_CLUSTER_IPS: "{{.Service.Name}}"
+      CONSUL_BOOTSTRAP_EXPECT: "3"
+      CONSUL_SKIP_CURL: "true"

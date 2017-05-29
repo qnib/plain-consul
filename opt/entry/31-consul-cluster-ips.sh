@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -x
 if [[ -n "${CONSUL_CLUSTER_IPS}" ]];then
     START_JOIN=""

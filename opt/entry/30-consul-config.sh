@@ -1,10 +1,11 @@
 #!/bin/bash
+set -x
 
 NODE_NAME=${CONSUL_NODE_NAME}
 CONSUL_SERVER=${CONSUL_SERVER:-false}
 ADDV_ADDR=${CONSUL_ADDV_ADDR}
 CONSUL_BOOTSTRAP=${CONSUL_BOOTSTRAP:-false}
-NET_DEV=${CONSUL_NET_DEV-eth0}
+IP_ADDR=$(go-fisherman --print-container-ip)
 
 if [ "X${CONSUL_BOOTSTRAP}" == "Xtrue" ];then
     sed -i -e "s#\"bootstrap\":.*#\"bootstrap\": true,#" /etc/consul.d/agent.json
@@ -19,7 +20,6 @@ fi
 if [ "X${DNS_RECURSOR}" != "X" ];then
     sed -i -e "s#\"recursor\":.*#\"recursor\": \"${DNS_RECURSOR}\",#" /etc/consul.d/agent.json
 fi
-IP_ADDR=$(ip -o -4 ad |egrep -o "eth0.*/(16|24)" |egrep -o "\d+\.\d+\.\d+\.\d+")
 if [ "X${ADDV_ADDR}" != "X" ];then
     sed -i -e "s#\"advertise_addr\":.*#\"advertise_addr\": \"${ADDV_ADDR}\",#" /etc/consul.d/agent.json
 else
